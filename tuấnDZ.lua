@@ -11,6 +11,8 @@ local Window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.End
 })
 local Tabs = {
+    infor = Window:AddTab({ Title = "Trang Chủ", Icon = "" }),
+    Home = Window:AddTab({ Title = "Trạng Thái", Icon = "" }),
     Main = Window:AddTab({ Title = "Main", Icon = "" }),
     Stats = Window:AddTab({ Title = "Stats", Icon = "" }),
     Player = Window:AddTab({ Title = "Player", Icon = "" }),
@@ -2466,7 +2468,123 @@ if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn
 	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
 
-local Farming = Tabs.Main:AddSection("Farming")
+---------------SettingTab
+Tabs.infor:AddSection("Nhóm Discord Của Tớ ~")
+Tabs.infor:AddButton({
+        Title = "Tham Gia Nhóm | R2LX HUB Và Các Bạn",
+        Description = "https://discord.gg/heSHddPs | Sao Chép Link",
+        Callback = function()
+        setclipboard("https://discord.gg/heSHddPs | Sao Chép Link")
+        end
+    })
+    Tabs.infor:AddSection("Kênh YouTube Của Tớ ~")
+Tabs.infor:AddButton({
+        Title = "Đăng Ký Kênh Của Tớ Với Nha :>>",
+        Description = "https://youtube.com/ | R2LX HUB",
+        Callback = function()
+        setclipboard("YouTube: ?¿?¿")
+        end
+    })
+  -----hết
+---------------TabStatus
+local BuonNaoDauAiThau = Tabs.Home:AddParagraph({
+    Title = "Trạng Thái: Quái Vật Katakuri",
+    Content = ""
+})
+
+spawn(
+function()
+	while wait() do
+		pcall(  
+		function()
+			if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 88 then
+				BuonNaoDauAiThau:SetDesc("Quát Vật Còn Lại: "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41).."")
+			elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 87 then
+				BuonNaoDauAiThau:SetDesc("Kill : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40).."")
+			elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 86 then
+				BuonNaoDauAiThau:SetDesc("Kill : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,39).." ")
+			else
+				BuonNaoDauAiThau:SetDesc("Quát Vật Katakuri Đang Spwm")
+			end
+		end
+		)
+	end
+end
+)
+local EmOiDungKhoc = Tabs.Home:AddParagraph({
+        Title = "Trạng Thái: Server Full Moon",
+        Content = ""
+    })
+    spawn(
+            function()
+                        while task.wait() do
+              pcall(  
+                    function()
+             if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" then
+                        EmOiDungKhoc:SetDesc("100%")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" then
+                        EmOiDungKhoc:SetDesc("75%")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709143733" then
+                        EmOiDungKhoc:SetDesc("50%")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709150401" then
+                        EmOiDungKhoc:SetDesc("25%")
+                    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149680" then
+                        EmOiDungKhoc:SetDesc("15%")
+                    else
+                        EmOiDungKhoc:SetDesc("0%")
+end
+end
+)
+end
+end
+)
+local ConMeMayThangWidiBuCacAnhDi = Tabs.Home:AddParagraph({
+    Title = "Trạng Thái: Boss Elite Hunter",
+    Content = ""
+})
+spawn(
+        function()
+    while wait() do
+        spawn(
+                function()
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") 
+            or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") 
+            or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") 
+            or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") 
+            or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") 
+            or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
+                ConMeMayThangWidiBuCacAnhDi:SetDesc("Đang Có Boss")	
+            else
+                ConMeMayThangWidiBuCacAnhDi:SetDesc("Không Có Boss")	
+            end
+        end
+        )
+    end
+end
+)
+local DaoNaoCac = Tabs.Home:AddParagraph({
+    Title = "Trạng Thái: Đảo Kì Bí",
+    Content = ""
+})
+
+local function updateMirageStatus()
+    local mirageIsland = game.Workspace._WorldOrigin.Locations:FindFirstChild('Đảo Kì Bí')
+    if mirageIsland then
+        DaoNaoCac:SetDesc('Trạng Thái: Đang Có Đảo')
+    else
+        DaoNaoCac:SetDesc('Trạng Thái: Không Có Đảo')
+    end
+end
+
+spawn(function()
+    while wait(1) do
+        pcall(updateMirageStatus)
+    end
+end
+)
+ ---hết
+    
+local Farming = Tabs.Main:AddSection("Farming") 
 local listfastattack = {'Tấn công bình thường','Tấn công nhanh','Tấn công siêu nhanh','Tấn công siêu siêu nhanh'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
@@ -6877,6 +6995,7 @@ spawn(function()
 end)
 end
 
+----join sever
 local ToggleMirageIsland = Tabs.Hop:AddSection("Join Server")
 local Input = Tabs.Hop:AddInput("Input", {
         Title = "Job Id",
@@ -6895,6 +7014,7 @@ Tabs.Hop:AddButton({
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,AnhAnDepTraiDaTai, game.Players.LocalPlayer)
     end
 })
+--- hết
 
 local SettingFarm = Tabs.Setting:AddSection("Farming")
 

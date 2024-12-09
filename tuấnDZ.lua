@@ -6201,6 +6201,31 @@ while wait() do
 end
 end)
 
+local Toggle = Tabs.Race:AddToggle("Turn V4", { Title = "Auto Tự Bật Tộc V4", Default = true })
+Toggle:OnChanged(function(Value)
+    RaceNguLon = Value
+end)
+
+task.spawn(
+    function()
+        while task.wait() do
+            task.wait()
+            if RaceNguLon then
+                if
+                game.Players.LocalPlayer.Character:FindFirstChild("RaceEnergy") and
+                game.Players.LocalPlayer.Character.RaceEnergy.Value >= 1 and
+                not game.Players.LocalPlayer.Character.RaceTransformed.Value
+                then
+                    local v = game:service("VirtualInputManager")
+                    v:SendKeyEvent(true, "Y", false, game)
+                    task.wait()
+                    v:SendKeyEvent(false, "Y", false, game)
+                end
+            end
+        end
+    end
+)
+
 local ToggleRandomBone = Tabs.Shop:AddToggle("ToggleRandomBone", {Title = "Đổi xương",Description = "", Default = false })
 ToggleRandomBone:OnChanged(function(Value)  
 		_G.AutoRandomBone = Value

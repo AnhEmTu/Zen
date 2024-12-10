@@ -2272,7 +2272,6 @@ end
 return 0
 end
 
-local cooldownfastattack = tick()
 local plr = game.Players.LocalPlayer
 	local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
 	local CbFw2 = CbFw[2]
@@ -2461,9 +2460,6 @@ ImageButton.Image = "rbxassetid://16137232629"
 ImageButton.MouseButton1Down:connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
 end)
-ImageButton.MouseButton1Down:Connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
-end)
 
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
 	game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
@@ -2472,7 +2468,7 @@ if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn
 	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
 
----------------SettingTab
+-------------SettingTab
 Tabs.infor:AddSection("Nhóm Discord Của Tớ ~")
 Tabs.infor:AddButton({
         Title = "Tham Gia Nhóm | R2LX HUB Và Các Bạn",
@@ -2490,7 +2486,8 @@ Tabs.infor:AddButton({
         end
     })
   -----hết
----------------TabStatus
+  
+  ---------------TabStatus
 local BuonNaoDauAiThau = Tabs.Home:AddParagraph({
     Title = "Trạng Thái: Quái Vật Katakuri",
     Content = ""
@@ -2587,8 +2584,8 @@ spawn(function()
 end
 )
  ---hết
-
-local Farming = Tabs.Main:AddSection("Farming") 
+ 
+local Farming = Tabs.Main:AddSection("Farming")
 local listfastattack = {'Tấn công bình thường','Tấn công nhanh','Tấn công siêu nhanh','Tấn công siêu siêu nhanh'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
@@ -4706,9 +4703,6 @@ if Second_Sea then
 
 
 
-
-
-
 if Second_Sea then
     local ToggleEvoRace = Tabs.Main:AddToggle("ToggleEvoRace", {Title = "Thức Tỉnh Tộc V2",Description = "",Default = false })
     ToggleEvoRace:OnChanged(function(Value)
@@ -5789,6 +5783,28 @@ spawn(function()
     end
 end)
 
+local Toggle = Tabs.Raid:AddToggle("Kill Aura", { Title = "Start Raid", Default = false })
+Toggle:OnChanged(function(Value)
+    _G.Auto_StartRaid = Value
+end)
+
+spawn(function()
+    while wait(.1) do
+        pcall(function()
+            if _G.Auto_StartRaid then
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == false then
+                    if not game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                        if AnDepZai2 then
+                            fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
+                        elseif AnDepZai3 then
+                            fireclickdetector(game:GetService("Workspace").Map["Boat Castle"].RaidSummon2.Button.Main.ClickDetector)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
 
 local ToggleNextIsland = Tabs.Raid:AddToggle("ToggleNextIsland", {Title = "Qua Đảo",Description = "", Default = false })
 ToggleNextIsland:OnChanged(function(Value)
@@ -6325,31 +6341,6 @@ while wait() do
     end)
 end
 end)
-
-local Toggle = Tabs.Race:AddToggle("Turn V4", { Title = "Auto Tự Bật Tộc V4", Default = true })
-Toggle:OnChanged(function(Value)
-    RaceNguLon = Value
-end)
-
-task.spawn(
-    function()
-        while task.wait() do
-            task.wait()
-            if RaceNguLon then
-                if
-                game.Players.LocalPlayer.Character:FindFirstChild("RaceEnergy") and
-                game.Players.LocalPlayer.Character.RaceEnergy.Value >= 1 and
-                not game.Players.LocalPlayer.Character.RaceTransformed.Value
-                then
-                    local v = game:service("VirtualInputManager")
-                    v:SendKeyEvent(true, "Y", false, game)
-                    task.wait()
-                    v:SendKeyEvent(false, "Y", false, game)
-                end
-            end
-        end
-    end
-)
 
 local ToggleRandomBone = Tabs.Shop:AddToggle("ToggleRandomBone", {Title = "Đổi xương",Description = "", Default = false })
 ToggleRandomBone:OnChanged(function(Value)  
@@ -6933,7 +6924,6 @@ function NoFog()
 end
 
 if First_Sea or Second_Sea then
-
     local Mastery = Tabs.Hop:AddSection("Sea 3 làm ơn!!!")
 end
 
@@ -6983,7 +6973,7 @@ end)
 
 
 local ToggleMirageIsland = Tabs.Hop:AddToggle("ToggleMirageIsland", {Title = "Tìm đảo bí ẩn",Description = "", Default = false })
-ToggleMirageIsland:OnChanged(function(Value) 
+ToggleMirageIsland:OnChanged(function(Value)
     _G.FindMirageIsland = Value
 end)
 Options.ToggleMirageIsland:SetValue(false)
